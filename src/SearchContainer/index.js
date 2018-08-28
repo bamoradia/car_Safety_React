@@ -79,7 +79,6 @@ class SearchContainer extends Component {
     		})
 
     		const allModelsJSON = await allModels.json();
-    		console.log(allModelsJSON.data);
 
     		this.setState({
     			currentMake: currentMake,
@@ -91,6 +90,34 @@ class SearchContainer extends Component {
 
     	} catch (err) {
     		console.log(err, 'Error in makeChange in SearchContainer');
+    	}
+    }
+
+    modelChange = async (e) => {
+    	e.preventDefault();
+
+    	try {	
+    		const currentModel = e.target.value;
+
+    		const allTrims = await fetch(`http://localhost:8000/api/v1/trims`, {
+			    method: 'POST',
+			    credentials: 'include',
+			    body: JSON.stringify({year: this.state.currentModelYear, make: this.state.currentMake, model: currentModel}),
+			    headers: {
+			      'Content-Type': 'application/json'
+			    }
+    		})
+
+    		const allTrimsJSON = await allTrims.json();
+
+    		this.setState({
+				currentModel: currentModel,
+				allTrims: allTrimsJSON.data,
+				currentTrim: []
+    		})
+
+    	} catch (err) {
+    		console.log(err, 'Error in modelChange in SearchContainer');
     	}
     }
 
@@ -117,9 +144,18 @@ class SearchContainer extends Component {
 
 					{this.state.allModels.length == 0 ? null : 
 						<select name='model' onChange={this.modelChange}>
-							<option>Please Select a Make</option>
+							<option>Please Select a Model</option>
 							{this.state.allModels.map((model, i) => {
 								return <option value={model} key={i}>{model}</option>
+							})}
+						</select>
+					}
+
+					{this.state.allTrims.length == 0 ? null : 
+						<select name='model' onChange={this.trimChange}>
+							<option>Please Select a Trim</option>
+							{this.state.allTrims.map((trim, i) => {
+								return <option value={trim.vehicle_id} key={i}>{trim.trim}</option>
 							})}
 						</select>
 					}
