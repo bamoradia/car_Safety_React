@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 
+
 class SplashPage extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 
 		}
@@ -14,6 +15,7 @@ class SplashPage extends Component {
 
 	clickHandle = (e) => {
 		e.preventDefault();
+		this.props.changeSplash()
 	}
 
 	render() {

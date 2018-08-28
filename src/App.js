@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './Header'
 import SplashPage from './SplashPage'
@@ -10,7 +10,10 @@ class App extends Component {
     constructor(){
         super();
         this.state= {
-            allModelYears: []
+            allModelYears: [],
+            //Where car to view, or cars to compare will be stored
+            cars: [],
+            splash: true
         }
     }
 
@@ -41,17 +44,48 @@ class App extends Component {
         }
     }
 
+    viewVehicle = async (vehicle_id) => {
+        console.log(vehicle_id)
+        try {
+
+            const vehicleInfo = await fetch(`http://localhost:8000/api/v1/vehicleinfo`, {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({vehicleid: vehicle_id}),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+            })
+
+            const vehicleInfoJSON = await vehicleInfo.json();
+
+            console.log(vehicleInfoJSON.data)
+
+
+        } catch (err) {
+            console.log(err, 'Error in viewVehicle in App.js');
+        }
+    }
+
+    changeSplash = () => {
+        this.setState({
+            splash: false
+        })
+        this.props.history.push('/search')
+    }
+
     render() {
         return (
+
             <main>
                 <Header />
                 <Switch>    
-                    <Route exact path='/' render={() => <SplashPage /> } />
-                    <Route exact path='/search' render={() => <SearchContainer allModelYears={this.state.allModelYears} /> } />
+                    {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
+                    <Route exact path='/search' render={() => <SearchContainer viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
                 </Switch>
             </main>
         )
-    }
+    }p
 }
 
 export default withRouter(App);

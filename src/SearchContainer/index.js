@@ -12,7 +12,7 @@ class SearchContainer extends Component {
 			allModels: [],
 			currentModel: '',
 			allTrims: [],
-			currentTrim: []
+			currentTrim: ''
 		}
 	}
 
@@ -23,13 +23,7 @@ class SearchContainer extends Component {
     //used to get vehicle information once all options are picked by user
     handleSubmit = async (e) => {
     	e.preventDefault();
-    	 try {
-
-
-
-    	 } catch (err) {
-    	 	console.log(err, 'Error in handleSubmit in SearchContainer')
-    	 }
+    	this.props.viewVehicle(this.state.currentTrim);
     }
 
     modelYearChange = async (e) => {
@@ -56,7 +50,7 @@ class SearchContainer extends Component {
 				allModels: [],
 				currentModel: '',
 				allTrims: [],
-				currentTrim: []
+				currentTrim: ''
     		})
     	} catch (err) {
     		console.log(err, 'Error in modelYearChange in SearchContainer');
@@ -85,7 +79,7 @@ class SearchContainer extends Component {
 				allModels: allModelsJSON.data,
 				currentModel: '',
 				allTrims: [],
-				currentTrim: []
+				currentTrim: ''
     		})
 
     	} catch (err) {
@@ -113,7 +107,7 @@ class SearchContainer extends Component {
     		this.setState({
 				currentModel: currentModel,
 				allTrims: allTrimsJSON.data,
-				currentTrim: []
+				currentTrim: ''
     		})
 
     	} catch (err) {
@@ -121,21 +115,29 @@ class SearchContainer extends Component {
     	}
     }
 
+    trimChange = (e) => {
+    	e.preventDefault();
+
+    	this.setState({
+    		currentTrim: e.target.value
+    	})
+    }
+
 
 	render() {
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit}>
-					<select name='modelYear' onChange={this.modelYearChange}>
-						<option>Please Select a Model Year</option>
+					<select name='modelYear' defaultValue='Please Select a Model Year'onChange={this.modelYearChange}>
+						<option disabled>Please Select a Model Year</option>
 						{this.props.allModelYears.map((modelYear, i) => {
 							return <option value={modelYear} key={i}>{modelYear}</option>
 						})}
 					</select>
 
 					{this.state.allMakes.length == 0 ? null : 
-						<select name='make' onChange={this.makeChange}>
-							<option>Please Select a Make</option>
+						<select name='make' defaultValue='Please Select a Make'onChange={this.makeChange}>
+							<option disabled>Please Select a Make</option>
 							{this.state.allMakes.map((make, i) => {
 								return <option value={make} key={i}>{make}</option>
 							})}
@@ -143,8 +145,8 @@ class SearchContainer extends Component {
 					}
 
 					{this.state.allModels.length == 0 ? null : 
-						<select name='model' onChange={this.modelChange}>
-							<option>Please Select a Model</option>
+						<select name='model' defaultValue='Please Select a Model' onChange={this.modelChange}>
+							<option disabled>Please Select a Model</option>
 							{this.state.allModels.map((model, i) => {
 								return <option value={model} key={i}>{model}</option>
 							})}
@@ -152,15 +154,15 @@ class SearchContainer extends Component {
 					}
 
 					{this.state.allTrims.length == 0 ? null : 
-						<select name='model' onChange={this.trimChange}>
-							<option>Please Select a Trim</option>
+						<select name='model' defaultValue='Please Select a Trim' onChange={this.trimChange}>
+							<option disabled>Please Select a Trim</option>
 							{this.state.allTrims.map((trim, i) => {
 								return <option value={trim.vehicle_id} key={i}>{trim.trim}</option>
 							})}
 						</select>
 					}
 
-
+					{this.state.currentTrim !== '' ? <button>Search for Vehicle</button> : null}
 
 				</form>
 
