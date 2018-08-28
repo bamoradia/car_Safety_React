@@ -8,3 +8,9 @@ body {
 a {
 	margin: 0px 10px;
 }
+
+
+.recalls {
+	height: 40vh;
+	overflow: scroll;
+}
