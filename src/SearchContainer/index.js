@@ -165,6 +165,7 @@ class SearchContainer extends Component {
 					{this.state.currentTrim !== '' ? <button>Search for Vehicle</button> : null}
 
 				</form>
+				{this.props.errorMSG === '' ? null : <h3>{this.props.errorMSG}</h3>}
 
 
 			</div>

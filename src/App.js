@@ -13,7 +13,9 @@ class App extends Component {
             allModelYears: [],
             //Where car to view, or cars to compare will be stored
             cars: [],
-            splash: true
+            searchedCar: '',
+            splash: true,
+            errorMSG: ''
         }
     }
 
@@ -57,13 +59,20 @@ class App extends Component {
                 }
             })
 
-            const vehicleInfoJSON = await vehicleInfo.json();
+            const vehicleInfoJSON = await vehicleInfo.json()
 
             console.log(vehicleInfoJSON.data)
-
-
+            if(vehicleInfoJSON.status === 200) {
+                this.setState({
+                    errorMSG: '', 
+                    searchedCar: vehicleInfoJSON.data
+                })
+            }
         } catch (err) {
             console.log(err, 'Error in viewVehicle in App.js');
+            this.setState({
+                    errorMSG: 'Safety rating for the selected car has not been provided by all organizations. Unable to present incomplete information.'
+                })
         }
     }
 
@@ -81,7 +90,7 @@ class App extends Component {
                 <Header />
                 <Switch>    
                     {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
-                    <Route exact path='/search' render={() => <SearchContainer viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
+                    <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
                 </Switch>
             </main>
         )
