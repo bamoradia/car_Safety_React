@@ -15,7 +15,7 @@ class ViewCar extends Component {
 		return (
 			<div>
 				<h3>{this.state.iihs.vehicle_description}</h3>
-				{checkParamsIIHS(this.state.iihs)}
+				{IIHS_top_safety(this.state.iihs)}
 				{checkParamsRecall(this.state.recalls)}
 				{checkParamsNHTSA(this.state.nhtsa)}
 			</div>
@@ -32,8 +32,80 @@ export default ViewCar;
 
 
 
-function checkParamsIIHS(iihs_input) {
-	return <h3>{iihs_input.class_name}</h3>
+function IIHS_top_safety(iihs_input) {
+	if(iihs_input.top_safety_pick === true) {
+		if(iihs_input.tsp_qualifying_text !== null) {
+			if(iihs_input.tsp_built_after !== null) {
+				return (
+					<div>
+						<h3>Is Top Safety Pick Plus</h3>
+						<h3>{iihs_input.tsp_year}</h3>
+						<h4>{iihs_input.tsp_built_after}</h4>
+						<h4>{iihs_input.tsp_qualifying_text}</h4>
+					</div>
+				)
+			} else {
+				return (
+					<div>
+						<h3>Is Top Safety Pick Plus</h3>
+						<h3>{iihs_input.tsp_year}</h3>
+						<h4>{iihs_input.tsp_qualifying_text}</h4>
+					</div>
+				)
+			}
+		} else if(iihs_input.tsp_built_after !== null) {
+			return (
+				<div>
+					<h3>Is Top Safety Pick Plus</h3>
+					<h3>{iihs_input.tsp_year}</h3>
+					<h4>{iihs_input.tsp_built_after}</h4>
+				</div>
+			)
+		} else {
+			return (
+				<div>
+					<h3>Is Top Safety Pick Plus</h3>
+					<h3>{iihs_input.tsp_year}</h3>
+				</div>
+			)
+		}
+	} else if (iihs_input.tsp_year !== null) {
+		if(iihs_input.tsp_qualifying_text !== null) {
+			if(iihs_input.tsp_built_after !== null) {
+				<div>
+					<h3>Is Top Safety Pick</h3>
+					<h3>{iihs_input.tsp_year}</h3>
+					<h4>{iihs_input.tsp_built_after}</h4>
+					<h4>{iihs_input.tsp_qualifying_text}</h4>
+				</div>
+			} else {
+				return (
+					<div>
+						<h3>Is Top Safety Pick</h3>
+						<h3>{iihs_input.tsp_year}</h3>
+						<h4>{iihs_input.tsp_qualifying_text}</h4>
+					</div>
+				)
+			}
+		} else if(iihs_input.tsp_built_after !== null) {
+			return (
+				<div>
+					<h3>Is Top Safety Pick</h3>
+					<h3>{iihs_input.tsp_year}</h3>
+					<h4>{iihs_input.tsp_built_after}</h4>
+				</div>
+			)
+		} else {
+			return (
+				<div>
+					<h3>Is Top Safety Pick Plus</h3>
+					<h3>{iihs_input.tsp_year}</h3>
+				</div>
+			)
+		}
+	} else {
+		return <h3>Not a Top Safety Pick</h3>
+	}
 }
 
 
@@ -43,7 +115,12 @@ function checkParamsRecall(recall_input) {
 }
 
 function checkParamsNHTSA(nhtsa_input) {
-	return <h3>{nhtsa_input.overall_rating}</h3>
+	return (
+		<div>
+			<h3>{nhtsa_input.overall_rating}</h3>
+
+		</div>
+	)
 }
 
 
