@@ -4,6 +4,7 @@ import './App.css';
 import Header from './Header'
 import SplashPage from './SplashPage'
 import SearchContainer from './SearchContainer'
+import ViewCar from './ViewCar'
 
 
 class App extends Component {
@@ -67,6 +68,7 @@ class App extends Component {
                     errorMSG: '', 
                     searchedCar: vehicleInfoJSON.data
                 })
+                this.props.history.push('/view')
             }
         } catch (err) {
             console.log(err, 'Error in viewVehicle in App.js');
@@ -91,6 +93,7 @@ class App extends Component {
                 <Switch>    
                     {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
                     <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
+                    {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} /> } />}
                 </Switch>
             </main>
         )

@@ -7,6 +7,7 @@ const Header = (props) => {
 		<header>
 			<Link style={{ textDecoration: 'none'}} to='/'><span>Home</span></Link>
 			<Link style={{ textDecoration: 'none'}} to='/search'><span>Search</span></Link>
+			<Link style={{ textDecoration: 'none'}} to='/view'><span>View Car</span></Link>
 			<a href='#'>Compare Cars</a>
 		</header>
 

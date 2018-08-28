@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
 
 
 class SearchContainer extends Component {
@@ -135,7 +134,7 @@ class SearchContainer extends Component {
 						})}
 					</select>
 
-					{this.state.allMakes.length == 0 ? null : 
+					{this.state.allMakes.length === 0 ? null : 
 						<select name='make' defaultValue='Please Select a Make'onChange={this.makeChange}>
 							<option disabled>Please Select a Make</option>
 							{this.state.allMakes.map((make, i) => {
@@ -144,7 +143,7 @@ class SearchContainer extends Component {
 						</select>
 					}
 
-					{this.state.allModels.length == 0 ? null : 
+					{this.state.allModels.length === 0 ? null : 
 						<select name='model' defaultValue='Please Select a Model' onChange={this.modelChange}>
 							<option disabled>Please Select a Model</option>
 							{this.state.allModels.map((model, i) => {
@@ -153,7 +152,7 @@ class SearchContainer extends Component {
 						</select>
 					}
 
-					{this.state.allTrims.length == 0 ? null : 
+					{this.state.allTrims.length === 0 ? null : 
 						<select name='model' defaultValue='Please Select a Trim' onChange={this.trimChange}>
 							<option disabled>Please Select a Trim</option>
 							{this.state.allTrims.map((trim, i) => {
