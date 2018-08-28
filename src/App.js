@@ -21,7 +21,7 @@ class App extends Component {
     componentDidMount() {
         this.loadModelYears().then(data => {
             this.setState({
-                allModelyears: data
+                allModelYears: data
             })
         })
     }
@@ -37,7 +37,7 @@ class App extends Component {
 
 
         } catch (err) {
-            console.log('Error with loadModelYears in App.js');
+            console.log(err, 'Error with loadModelYears in App.js');
         }
     }
 
@@ -47,8 +47,7 @@ class App extends Component {
                 <Header />
                 <Switch>    
                     <Route exact path='/' render={() => <SplashPage /> } />
-                    <Route exact path='/search' render={() => <SearchContainer /> } />
-
+                    <Route exact path='/search' render={() => <SearchContainer allModelYears={this.state.allModelYears} /> } />
                 </Switch>
             </main>
         )
