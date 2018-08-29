@@ -21,9 +21,8 @@ class ViewCar extends Component {
     }
 
 	render() {
-		console.log(this.state.nhtsa)
 		return (
-			<div>
+			<div className='viewContainer'>
 				<h3>{this.state.iihs.vehicle_description}</h3>
 				<button onClick={this.handleClick}>Add to Comparison</button>
 				<div className='ratings-container'>

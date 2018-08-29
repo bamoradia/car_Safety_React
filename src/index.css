@@ -8,6 +8,18 @@ body {
 
 a {
 	margin: 0px 10px;
+	color: lightblue;
+}
+
+a:hover {
+	color: white;
+}
+
+header {
+	background-color: rgba(0, 0, 0, 0.8);
+	height: 5vh;
+	display: flex;
+	align-items: center;
 }
 
 
@@ -36,6 +48,13 @@ a {
 .compareContainer {
 	display: flex;
 	justify-content: space-between;
+	overflow: scroll;
+	max-height: 95vh;
+}
+
+.viewContainer {
+	max-height: 95vh;
+	overflow: scroll;
 }
 
 .compare-car-1 > .ratings-container {
@@ -43,13 +62,18 @@ a {
 }
 
 .compare-car-2 > .ratings-container {
-	display: inline-block;
+	display: inline-block; 
 }
 
 .compare-car-3 > .ratings-container {
 	display: inline-block;
 }
 
+
+.compare-car-1, .compare-car-2, .compare-car-3 {
+	max-width: 30vw;
+	text-align: center;
+}
 
 
 .card-layout {
