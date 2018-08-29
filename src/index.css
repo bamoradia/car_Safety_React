@@ -30,7 +30,7 @@ header {
 	background-color: white;
 	border-radius: 5px;
 	padding: 15px;
-	margin: 30px;
+	margin: 30px 5px;
 
 }
 
@@ -47,7 +47,7 @@ header {
 
 .compareContainer {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	overflow: scroll;
 	max-height: 95vh;
 }
@@ -55,6 +55,7 @@ header {
 .viewContainer {
 	max-height: 95vh;
 	overflow: scroll;
+	text-align: center;
 }
 
 .compare-car-1 > .ratings-container {
@@ -71,10 +72,14 @@ header {
 
 
 .compare-car-1, .compare-car-2, .compare-car-3 {
-	max-width: 30vw;
+	max-width: 33vw;
 	text-align: center;
 }
 
+.recalls > div > h3{
+	text-transform: lowercase;
+	/*text-transform: capitalize;*/
+}
 
 .card-layout {
 	text-align: center;
@@ -93,4 +98,5 @@ header {
 	max-height: 60vh;
 	overflow: scroll;
 	box-shadow: 0px 0px 2px gray;
+	margin: 5px;
 }

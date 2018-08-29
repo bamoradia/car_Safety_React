@@ -100,6 +100,14 @@ class App extends Component {
         })
     }
 
+    carToView = (carToView) => {
+        const viewCar = this.state.cars.filter(car =>  car.nhtsa[0].fields.vehicle_description === carToView)
+        this.setState({
+            searchedCar: viewCar[0]
+        })
+        this.props.history.push('/view')
+    }
+
     render() {
         return (
 
@@ -109,7 +117,7 @@ class App extends Component {
                     {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
                     <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
                     {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} compareCar={this.compareCar} /> } />}
-                    <Route path='/' render={() => <CompareCars cars={this.state.cars} removeCar={this.removeCar} /> } />
+                    <Route path='/' render={() => <CompareCars carToView={this.carToView} cars={this.state.cars} removeCar={this.removeCar} /> } />
                 </Switch>
             </main>
         )

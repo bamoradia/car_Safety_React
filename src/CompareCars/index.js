@@ -17,23 +17,42 @@ class CompareCars extends Component {
     emptyFunction = () => {
     }
 
-    handleClick = (e) => {
+    buttonClick = (e) => {
     	e.preventDefault();
     	// console.log(e.target.value)
     	this.props.removeCar(e.target.value)
     }
 
+    handleClick = (e) => {
+    	e.preventDefault();
+
+    	this.props.carToView(e.target.id)
+    }
+
 	render() {
+		let warning = null;
+		let cars = [];
+		if(this.props.cars.length > 3) {
+			warning = <h3 className='warning'>Limited to comparing 3 cars at one time. Please remove a car to see another car</h3>
+			cars = [this.props.cars[0], this.props.cars[1], this.props.cars[2]]
+		} else {
+			cars = this.props.cars
+		}
+
+
 		if(this.props.cars.length === 0) {
 			return <h3>Please search and add cars to compare to start comparing</h3>
 		} else {
 			return (
 				<div className='compareContainer'>
-					{this.props.cars.map((car, i) => {
+				{warning}
+					{cars.map((car, i) => {
 						return (
 							<div key={i} className={compareClassNames[i]}>
-								<h3>{car.iihs[0].fields.vehicle_description}</h3>
-								<button onClick={this.handleClick} value={car.nhtsa[0].fields.vehicle_description}>Remove from Comparison</button>
+								<div onClick={this.handleClick}>
+									<h3 id={car.iihs[0].fields.vehicle_description}>{car.iihs[0].fields.vehicle_description}</h3>
+								</div>
+								<button onClick={this.buttonClick} value={car.nhtsa[0].fields.vehicle_description}>Remove from Comparison</button>
 								<div className='ratings-container'>
 									{NHTSA(car.nhtsa[0].fields)}
 									<div className='spacer'>
