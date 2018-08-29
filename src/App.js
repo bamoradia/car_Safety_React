@@ -5,6 +5,7 @@ import Header from './Header'
 import SplashPage from './SplashPage'
 import SearchContainer from './SearchContainer'
 import ViewCar from './ViewCar'
+import CompareCars from './CompareCars'
 
 
 class App extends Component {
@@ -83,7 +84,15 @@ class App extends Component {
         this.props.history.push('/search')
     }
 
+    compareCar = () => {
+        this.setState({
+            cars: [...this.state.cars, this.state.searchedCar]
+        })
+        this.props.history.push('/compare')
+    }
+
     render() {
+        console.log(this.state.cars)
         return (
 
             <main>
@@ -91,7 +100,8 @@ class App extends Component {
                 <Switch>    
                     {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
                     <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
-                    {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} /> } />}
+                    {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} compareCar={this.compareCar} /> } />}
+                    <Route path='/' render={() => <CompareCars cars={this.state.cars} /> } />
                 </Switch>
             </main>
         )

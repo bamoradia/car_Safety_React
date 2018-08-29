@@ -22,6 +22,33 @@ a {
 
 }
 
+.heading {
+	text-decoration: underline;
+}
+
+.spacer {
+	width: 3px;
+	background-color: gray;
+	height: auto;
+	margin: 5px 0;
+}
+
+.compareContainer {
+	display: flex;
+	justify-content: space-around;
+}
+
+.compare-car-1 > .ratings-container {
+	display: inline-block;
+}
+
+.compare-car-2 > .ratings-container {
+	display: inline-block;
+}
+
+.compare-car-3 > .ratings-container {
+	display: inline-block;
+}
 
 
 
@@ -36,6 +63,7 @@ a {
 }
 
 .ratings-container {
+	text-align: center;
 	display: flex;
 	justify-content: space-around;
 	max-height: 60vh;
