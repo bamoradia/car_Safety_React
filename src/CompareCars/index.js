@@ -13,6 +13,16 @@ class CompareCars extends Component {
 		}
 	}
 
+	//This function is empty to change the color of all subsequent functions (Sublime Text 3 bug)
+    emptyFunction = () => {
+    }
+
+    handleClick = (e) => {
+    	e.preventDefault();
+    	// console.log(e.target.value)
+    	this.props.removeCar(e.target.value)
+    }
+
 	render() {
 		if(this.props.cars.length === 0) {
 			return <h3>Please search and add cars to compare to start comparing</h3>
@@ -20,13 +30,10 @@ class CompareCars extends Component {
 			return (
 				<div className='compareContainer'>
 					{this.props.cars.map((car, i) => {
-						console.log('---------------------------------')
-						console.log(car, 'this is car inside the map')
-						console.log('---------------------------------')
 						return (
 							<div key={i} className={compareClassNames[i]}>
-								<h3>{car.iihs.vehicle_description}</h3>
-								<button onClick={this.handleClick}>Add to Comparison</button>
+								<h3>{car.iihs[0].fields.vehicle_description}</h3>
+								<button onClick={this.handleClick} value={car.nhtsa[0].fields.vehicle_description}>Remove from Comparison</button>
 								<div className='ratings-container'>
 									{NHTSA(car.nhtsa[0].fields)}
 									<div className='spacer'>

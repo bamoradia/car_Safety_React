@@ -35,7 +35,7 @@ a {
 
 .compareContainer {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 
 .compare-car-1 > .ratings-container {
