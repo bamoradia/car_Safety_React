@@ -17,7 +17,8 @@ class App extends Component {
             cars: [],
             searchedCar: '',
             splash: true,
-            errorMSG: ''
+            errorMSG: '',
+            topSafetyPicks: []
         }
     }
 

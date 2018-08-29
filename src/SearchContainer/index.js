@@ -125,8 +125,9 @@ class SearchContainer extends Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
+			<div className='search-container'>
+				<h2>Search by Car</h2>
+				<form className='search-container-form' onSubmit={this.handleSubmit}>
 					<select name='modelYear' defaultValue='Please Select a Model Year'onChange={this.modelYearChange}>
 						<option disabled>Please Select a Model Year</option>
 						{this.props.allModelYears.map((modelYear, i) => {
