@@ -48,7 +48,6 @@ class App extends Component {
     }
 
     viewVehicle = async (vehicle_id) => {
-        console.log(vehicle_id)
         try {
 
             const vehicleInfo = await fetch(`http://localhost:8000/api/v1/vehicleinfo`, {
@@ -62,7 +61,6 @@ class App extends Component {
 
             const vehicleInfoJSON = await vehicleInfo.json()
 
-            console.log(vehicleInfoJSON.data)
             if(vehicleInfoJSON.status === 200) {
                 this.setState({
                     errorMSG: '', 

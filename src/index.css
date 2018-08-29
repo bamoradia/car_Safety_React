@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: rgba(251, 252, 255, 1);
 }
 
 
@@ -11,6 +12,33 @@ a {
 
 
 .recalls {
-	height: 40vh;
+	max-height: 40vh;
 	overflow: scroll;
+	box-shadow: 0px 0px 2px gray;
+	background-color: white;
+	border-radius: 5px;
+	padding: 15px;
+	margin: 30px;
+
+}
+
+
+
+
+.card-layout {
+	text-align: center;
+	box-shadow: 0px 0px 2px gray;
+	width: auto;
+	padding: 5px 10px;
+	margin: 30px;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.ratings-container {
+	display: flex;
+	justify-content: space-around;
+	max-height: 60vh;
+	overflow: scroll;
+	box-shadow: 0px 0px 2px gray;
 }
