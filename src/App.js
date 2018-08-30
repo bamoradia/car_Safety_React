@@ -30,7 +30,6 @@ class App extends Component {
     componentDidMount() {
         //used to load all the model years in the NHTSA database as well as the top safety pick+ vehicles that are stored in the backend server
         this.loadModelYearsAndTSPP().then(data => {
-            console.log(data, 'this is data in componentDidMount')
             this.setState({
                 allModelYears: data.modelYears,
                 topSafetyPicks: data.topSafetyPicks
@@ -69,17 +68,20 @@ class App extends Component {
                 finalList.push(tempFormat)
             }
 
-            // const topSafetyProcessed = topSafetyPickPlusJSON.data.map(car => {
-            //     return car.fields
-            // })
 
-            // //sort array by TSP year, then by # of recalls, then by vehicle descriptions
-            // topSafetyProcessed.sort(function(a, b) {
-            //     return b.tsp_year - a.tsp_year
-            // })
-
-            // console.log(topSafetyProcessed)
-
+            console.log(finalList)
+            // sort array by TSP year, then by # of recalls, then by vehicle descriptions
+            finalList.sort(function(a, b) {
+                if(b.iihs.tsp_year === a.iihs.tsp_year) {
+                    if(b.recall.length === a.recall.length) {
+                        return b.iihs.vehicle_description + a.iihs.vehicle_description
+                    } else {
+                        return b.recall.length + a.recall.length
+                    }
+                } else {
+                    return b.iihs.tsp_year - a.iihs.tsp_year
+                }
+            })
 
             const returnData = {modelYears: modelYearsData, topSafetyPicks: finalList}
             return returnData
@@ -153,18 +155,9 @@ class App extends Component {
     carToViewHomePage = (carToView) => {
         const viewCar = this.state.topSafetyPicks.filter(car =>  car.nhtsa.vehicle_description === carToView)
 
-        /*
-            searched car needs recall to be an array
-                               nhtsa and iihs to be an array with everything inside of fields and 
-
-        */
-
-        console.log(viewCar)
-
         this.setState({
             searchedCar: {nhtsa: [{fields: viewCar[0].nhtsa}], iihs: [{fields:viewCar[0].iihs}], recall: viewCar[0].recall}
         })
-
         this.props.history.push('/view')
     }
 
