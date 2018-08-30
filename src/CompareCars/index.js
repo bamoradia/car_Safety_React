@@ -41,42 +41,48 @@ class CompareCars extends Component {
 
 
 		if(this.props.cars.length === 0) {
-			return <h3>Please search and add cars to compare to start comparing</h3>
+			return (
+				<div className='warning-container'>
+					<h3>Please search and add cars to compare to start comparing</h3>
+				</div>
+			)
 		} else {
 			return (
-				<div className='compareContainer'>
+				<div className='warning-container'>
 				{warning}
-					{cars.map((car, i) => {
-						return (
-							<div key={i} className={compareClassNames[i]}>
-								<div onClick={this.handleClick}>
-									<h3 id={car.iihs[0].fields.vehicle_description}>{car.iihs[0].fields.vehicle_description}</h3>
-								</div>
-								<button onClick={this.buttonClick} value={car.nhtsa[0].fields.vehicle_description}>Remove from Comparison</button>
-								<div className='ratings-container'>
-									{NHTSA(car.nhtsa[0].fields)}
-									<div className='spacer'>
+					<div className='compareContainer'>
+						{cars.map((car, i) => {
+							return (
+								<div key={i} className={compareClassNames[i]}>
+									<div className='compare-link' onClick={this.handleClick}>
+										<h3 id={car.iihs[0].fields.vehicle_description}>{car.iihs[0].fields.vehicle_description}</h3>
 									</div>
-									<div className='IIHS-ratings'>
-										<h4 className='heading'>IIHS Crash Test Ratings</h4>
-										{IIHS_top_safety(car.iihs[0].fields)}
-										{IIHS_FRMO(car.iihs[0].fields)}
-										{IIHS_FRSO(car.iihs[0].fields)}
-										{IIHS_FRSOP(car.iihs[0].fields)}
-										{IIHS_SR(car.iihs[0].fields)}
-										{IIHS_Rollover(car.iihs[0].fields)}
-										{IIHS_Rear(car.iihs[0].fields)}
-										{IIHS_FCPR(car.iihs[0].fields)}
+									<button onClick={this.buttonClick} value={car.nhtsa[0].fields.vehicle_description}>Remove from Comparison</button>
+									<div className='ratings-container'>
+										{NHTSA(car.nhtsa[0].fields)}
+										<div className='spacer'>
+										</div>
+										<div className='IIHS-ratings'>
+											<h4 className='heading'>IIHS Crash Test Ratings</h4>
+											{IIHS_top_safety(car.iihs[0].fields)}
+											{IIHS_FRMO(car.iihs[0].fields)}
+											{IIHS_FRSO(car.iihs[0].fields)}
+											{IIHS_FRSOP(car.iihs[0].fields)}
+											{IIHS_SR(car.iihs[0].fields)}
+											{IIHS_Rollover(car.iihs[0].fields)}
+											{IIHS_Rear(car.iihs[0].fields)}
+											{IIHS_FCPR(car.iihs[0].fields)}
+										</div>
+									</div>
+									<div className='recalls'>
+										{car.recall.map((recall, i) => {
+											return renderRecall(recall, i)
+										})}
 									</div>
 								</div>
-								<div className='recalls'>
-									{car.recall.map((recall, i) => {
-										return renderRecall(recall, i)
-									})}
-								</div>
-							</div>
-						)
-					})}
+							)
+						})}
+					</div>
 				</div>
 			)
 		}

@@ -20,7 +20,7 @@ class SplashPage extends Component {
 
 	render() {
 		return(
-			<div>
+			<div className='splash'>
 				<p>This website can be used to see safety ratings for a specific vehicle and to compare against other vechicles.</p>
 				<p>By clicking the button to continue onto the website, you agree that we are not liable for the information shown within. All information is gathered from nhtsa.gov and iihs.org</p>
 				<button onClick={this.clickHandle} >Continue to Home Page</button>

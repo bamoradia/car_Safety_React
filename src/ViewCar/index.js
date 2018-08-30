@@ -23,7 +23,7 @@ class ViewCar extends Component {
 	render() {
 		return (
 			<div className='viewContainer'>
-				<h3>{this.state.iihs.vehicle_description}</h3>
+				<h3 className='heading'>{this.state.iihs.vehicle_description}</h3>
 				<button onClick={this.handleClick}>Add to Comparison</button>
 				<div className='ratings-container'>
 					{NHTSA(this.state.nhtsa)}
@@ -41,6 +41,7 @@ class ViewCar extends Component {
 						{IIHS_FCPR(this.state.iihs)}
 					</div>
 				</div>
+				<h3 className='heading'>Active Recalls for {this.state.iihs.vehicle_description}</h3>
 				<div className='recalls'>
 					{this.state.recalls.map((recall, i) => {
 						return renderRecall(recall, i)

@@ -383,8 +383,9 @@ export function IIHS_FCPR(iihs_input) {
 
 export function renderRecall(recall_input, index) {
 	return (
-		<div key={index}>
-			<h3>{recall_input.fields.component}</h3>
+		<div className='card-layout' key={index}>
+			<h3 className='heading'>{recall_input.fields.component}</h3>
+			<p>{recall_input.fields.summary}</p>
 		</div>
 	)
 }
