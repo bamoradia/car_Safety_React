@@ -26,11 +26,12 @@ class Home extends Component {
 				</div><br/>
 				<div className='top-container'>
 					<h3>Below are a list of Top Safety Pick+ vehicles shown by year to help you get started.</h3>
-					<p>Click on each to see it's full safety page</p>
+					<p>Click on each to see it's full safety page</p><br/>
+					<p>Please note that this list is not all inclusive, and does not in it of itself contain all the information needed to make a well-informed decision. It is only be used as a starting off point</p>
 					{this.props.topSafetyPicks.map((car, i) => {
 						return (
 							<div key={i} onClick={this.handleClick}>
-								<h3 id={car.vehicle_description}>{car.vehicle_description}</h3>
+								<h4 className='compare-link' id={car.nhtsa.vehicle_description}>{car.nhtsa.vehicle_description}</h4>
 							</div>
 						)
 					})}

@@ -30,6 +30,7 @@ class App extends Component {
     componentDidMount() {
         //used to load all the model years in the NHTSA database as well as the top safety pick+ vehicles that are stored in the backend server
         this.loadModelYearsAndTSPP().then(data => {
+            console.log(data, 'this is data in componentDidMount')
             this.setState({
                 allModelYears: data.modelYears,
                 topSafetyPicks: data.topSafetyPicks
@@ -50,20 +51,37 @@ class App extends Component {
             //filter out results that are 'null' and return
             const modelYearsData = apiModelYearsJSON.data.filter(year => year !== 'null')
 
+            const nhtsa = topSafetyPickPlusJSON.data.nhtsa
+            const iihs = topSafetyPickPlusJSON.data.iihs
+            // const recall = JSON.parse(topSafetyPickPlusJSON.data.recall)
 
-            const topSafetyProcessed = topSafetyPickPlusJSON.data.map(car => {
-                return car.fields
-            })
+            const recallParsed = []
 
-            //sort array by TSP year, then by # of recalls, then by vehicle descriptions
-            topSafetyProcessed.sort(function(a, b) {
-                return b.tsp_year - a.tsp_year
-            })
+            for(let i = 0; i < topSafetyPickPlusJSON.data.recall.length; i++) {
+                recallParsed.push(JSON.parse(topSafetyPickPlusJSON.data.recall[i]))
+            }
 
-            console.log(topSafetyProcessed)
+            const finalList = []
+
+            for(let i = 0; i < nhtsa.length; i++) {
+                const tempFormat = {nhtsa: nhtsa[i].fields, iihs: iihs[i].fields, recall: recallParsed[i]}
+
+                finalList.push(tempFormat)
+            }
+
+            // const topSafetyProcessed = topSafetyPickPlusJSON.data.map(car => {
+            //     return car.fields
+            // })
+
+            // //sort array by TSP year, then by # of recalls, then by vehicle descriptions
+            // topSafetyProcessed.sort(function(a, b) {
+            //     return b.tsp_year - a.tsp_year
+            // })
+
+            // console.log(topSafetyProcessed)
 
 
-            const returnData = {modelYears: modelYearsData, topSafetyPicks: topSafetyProcessed}
+            const returnData = {modelYears: modelYearsData, topSafetyPicks: finalList}
             return returnData
 
 
@@ -132,6 +150,14 @@ class App extends Component {
         this.props.history.push('/view')
     }
 
+    carToViewHomePage = (carToView) => {
+        const viewCar = this.state.topSafetyPicks.filter(car =>  car.nhtsa[0].fields.vehicle_description === carToView)
+        this.setState({
+            searchedCar: viewCar[0]
+        })
+        this.props.history.push('/view')
+    }
+
     render() {
         return (
 
@@ -139,7 +165,7 @@ class App extends Component {
                 <Header />
                 <Switch>    
                     {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : 
-                    <Route exact path='/' render={() => <Home carToView={this.carToView} topSafetyPicks={this.state.topSafetyPicks}/> } />}
+                    <Route exact path='/' render={() => <Home carToView={this.carToViewHomePage} topSafetyPicks={this.state.topSafetyPicks}/> } />}
                     <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
                     {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} compareCar={this.compareCar} /> } />}
                     <Route path='/' render={() => <CompareCars carToView={this.carToView} cars={this.state.cars} removeCar={this.removeCar} /> } />
