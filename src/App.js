@@ -151,10 +151,20 @@ class App extends Component {
     }
 
     carToViewHomePage = (carToView) => {
-        const viewCar = this.state.topSafetyPicks.filter(car =>  car.nhtsa[0].fields.vehicle_description === carToView)
+        const viewCar = this.state.topSafetyPicks.filter(car =>  car.nhtsa.vehicle_description === carToView)
+
+        /*
+            searched car needs recall to be an array
+                               nhtsa and iihs to be an array with everything inside of fields and 
+
+        */
+
+        console.log(viewCar)
+
         this.setState({
-            searchedCar: viewCar[0]
+            searchedCar: {nhtsa: [{fields: viewCar[0].nhtsa}], iihs: [{fields:viewCar[0].iihs}], recall: viewCar[0].recall}
         })
+
         this.props.history.push('/view')
     }
 
