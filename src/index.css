@@ -166,6 +166,12 @@ button:hover {
 	cursor: pointer;
 }
 
+.home-container {
+	text-align: center;
+	max-width: 60vw;
+	margin: 0 auto;
+}
+
 
 
 

@@ -6,6 +6,7 @@ import SplashPage from './SplashPage'
 import SearchContainer from './SearchContainer'
 import ViewCar from './ViewCar'
 import CompareCars from './CompareCars'
+import Home from './Home'
 
 
 class App extends Component {
@@ -27,21 +28,43 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.loadModelYears().then(data => {
+        //used to load all the model years in the NHTSA database as well as the top safety pick+ vehicles that are stored in the backend server
+        this.loadModelYearsAndTSPP().then(data => {
             this.setState({
-                allModelYears: data
+                allModelYears: data.modelYears,
+                topSafetyPicks: data.topSafetyPicks
             })
         })
     }
 
-    loadModelYears = async () => {
+    loadModelYearsAndTSPP = async () => {
         try {
             const apiModelYears = await fetch('http://localhost:8000/api/v1/modelyears');
 
             const apiModelYearsJSON = await apiModelYears.json();
 
+            const topSafetyPickPlus = await fetch('http://localhost:8000/api/v1/topsafety');
+
+            const topSafetyPickPlusJSON = await topSafetyPickPlus.json();
+
             //filter out results that are 'null' and return
-            return apiModelYearsJSON.data.filter(year => year !== 'null')
+            const modelYearsData = apiModelYearsJSON.data.filter(year => year !== 'null')
+
+
+            const topSafetyProcessed = topSafetyPickPlusJSON.data.map(car => {
+                return car.fields
+            })
+
+            //sort array by TSP year, then by # of recalls, then by vehicle descriptions
+            topSafetyProcessed.sort(function(a, b) {
+                return b.tsp_year - a.tsp_year
+            })
+
+            console.log(topSafetyProcessed)
+
+
+            const returnData = {modelYears: modelYearsData, topSafetyPicks: topSafetyProcessed}
+            return returnData
 
 
         } catch (err) {
@@ -82,7 +105,7 @@ class App extends Component {
         this.setState({
             splash: false
         })
-        this.props.history.push('/search')
+        this.props.history.push('/')
     }
 
     compareCar = () => {
@@ -115,7 +138,8 @@ class App extends Component {
             <main>
                 <Header />
                 <Switch>    
-                    {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : null}
+                    {this.state.splash ? <Route path='/' render={() => <SplashPage changeSplash={this.changeSplash} /> } /> : 
+                    <Route exact path='/' render={() => <Home carToView={this.carToView} topSafetyPicks={this.state.topSafetyPicks}/> } />}
                     <Route exact path='/search' render={() => <SearchContainer errorMSG={this.state.errorMSG} viewVehicle={this.viewVehicle} allModelYears={this.state.allModelYears} /> } />
                     {this.state.searchedCar === '' ? null : <Route exact path='/view' render={() => <ViewCar searchedCar={this.state.searchedCar} compareCar={this.compareCar} /> } />}
                     <Route path='/' render={() => <CompareCars carToView={this.carToView} cars={this.state.cars} removeCar={this.removeCar} /> } />
