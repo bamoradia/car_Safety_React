@@ -68,8 +68,6 @@ class App extends Component {
                 finalList.push(tempFormat)
             }
 
-
-            console.log(finalList)
             // sort array by TSP year, then by # of recalls, then by vehicle descriptions
             finalList.sort(function(a, b) {
                 if(b.iihs.tsp_year === a.iihs.tsp_year) {
