@@ -39,11 +39,11 @@ class App extends Component {
 
     loadModelYearsAndTSPP = async () => {
         try {
-            const apiModelYears = await fetch('http://localhost:8000/api/v1/modelyears');
+            const apiModelYears = await fetch('https://safe-headland-53598.herokuapp.com/api/v1/modelyears');
 
             const apiModelYearsJSON = await apiModelYears.json();
 
-            const topSafetyPickPlus = await fetch('http://localhost:8000/api/v1/topsafety');
+            const topSafetyPickPlus = await fetch('https://safe-headland-53598.herokuapp.com/api/v1/topsafety');
 
             const topSafetyPickPlusJSON = await topSafetyPickPlus.json();
 
@@ -95,7 +95,7 @@ class App extends Component {
     viewVehicle = async (vehicle_id) => {
         try {
 
-            const vehicleInfo = await fetch(`http://localhost:8000/api/v1/vehicleinfo`, {
+            const vehicleInfo = await fetch(`https://safe-headland-53598.herokuapp.com/api/v1/vehicleinfo`, {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify({vehicleid: vehicle_id}),

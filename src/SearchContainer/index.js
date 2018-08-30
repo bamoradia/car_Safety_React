@@ -31,7 +31,7 @@ class SearchContainer extends Component {
 
     		const currentModelYear = e.target.value;
 
-    		const allMakes = await fetch(`http://localhost:8000/api/v1/makes`, {
+    		const allMakes = await fetch(`https://safe-headland-53598.herokuapp.com/api/v1/makes`, {
 			    method: 'POST',
 			    credentials: 'include',
 			    body: JSON.stringify({year: currentModelYear}),
@@ -62,7 +62,7 @@ class SearchContainer extends Component {
     	try {	
     		const currentMake = e.target.value;
 
-    		const allModels = await fetch(`http://localhost:8000/api/v1/models`, {
+    		const allModels = await fetch(`https://safe-headland-53598.herokuapp.com/api/v1/models`, {
 			    method: 'POST',
 			    credentials: 'include',
 			    body: JSON.stringify({year: this.state.currentModelYear, make: currentMake}),
@@ -92,7 +92,7 @@ class SearchContainer extends Component {
     	try {	
     		const currentModel = e.target.value;
 
-    		const allTrims = await fetch(`http://localhost:8000/api/v1/trims`, {
+    		const allTrims = await fetch(`https://safe-headland-53598.herokuapp.com/api/v1/trims`, {
 			    method: 'POST',
 			    credentials: 'include',
 			    body: JSON.stringify({year: this.state.currentModelYear, make: this.state.currentMake, model: currentModel}),
