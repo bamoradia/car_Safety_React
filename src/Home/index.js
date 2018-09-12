@@ -20,7 +20,7 @@ class Home extends Component {
 		return (
 			<div className='home-container'>
 				<div className='home-header'>
-					<h2>Welcome to Car Safety!</h2>
+					<h2>Welcome to SafeT!</h2>
 					<h4>Start by searching for a car to see all the crash test information provided by IIHS and NHTSA. Also check to see all the recalls that affect that model.</h4>
 					<h4>If you have a few different cars you would like compare, no problem, add each car to the compare page and see their information side by side to help you make the best decision for you and your family!</h4>
 				</div><br/>
